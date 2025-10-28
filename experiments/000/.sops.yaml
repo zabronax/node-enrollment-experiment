@@ -7,3 +7,8 @@ creation_rules:
     key_groups:
       - age:
           - *development
+  # Deployment SSH keys
+  - path_regex: ^deployment/ssh-identity.encrypted$
+    key_groups:
+      - age:
+          - *development

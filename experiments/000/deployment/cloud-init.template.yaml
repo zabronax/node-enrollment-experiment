@@ -1,0 +1,52 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - ufw
+
+write_files:
+  # Firewall service
+  - path: /etc/systemd/system/setup-firewall.service
+    permissions: "0644"
+    content: |
+      [Unit]
+      Description=Setup strict firewall rules
+      After=network.target
+      Before=ufw.service
+      Before=reconcile.service
+
+      [Service]
+      Type=oneshot
+      RemainAfterExit=yes
+      ExecStart=/usr/local/bin/setup-firewall.sh
+
+      [Install]
+      WantedBy=multi-user.target
+
+  - path: /usr/local/bin/setup-firewall.sh
+    permissions: "0755"
+    content: |
+      #!/bin/sh
+      set -e
+      ufw allow 22/tcp
+      ufw default deny incoming
+      ufw default allow outgoing
+      ufw --force enable
+
+  # SSH h ardening
+  - path: /etc/ssh/sshd_config.d/99-ssh-hardening.conf
+    permissions: "0644"
+    content: |
+      PermitRootLogin prohibit-password
+      PasswordAuthentication no
+      ChallengeResponseAuthentication no
+      PubkeyAuthentication yes
+      AllowAgentForwarding no
+      AllowTcpForwarding no
+      X11Forwarding no
+
+runcmd:
+  - sysctl --system
+  - systemctl enable --now setup-firewall.service

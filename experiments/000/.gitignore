@@ -5,3 +5,8 @@
 .terraform/
 *.tfvar
 *.tfstate*
+
+# Deployment SSH Keys (private only)
+# Decrypted locally for access to the server
+# Wrapping the SSH agent with SOPS is flaky.
+id_rsa
