@@ -1,6 +1,10 @@
 <div align="center">
   <img alt="Logo" src="./docs/assets/logo.svg" height="128">
   <h1>Node Enrollment Experiments</h1>
+
+  <div>
+    <a href="https://github.com/zabronax/node-enrollment-experiment/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/zabronax/node-enrollment-experiment?style=for-the-badge&labelColor=020618&color=0f172b"></a>
+  </div>
 </div>
 
 This repository contains experimental work exploring secure node enrollment patterns and vault integration approaches.
@@ -25,3 +29,7 @@ Explore approaches for securely bootstrapping nodes with cryptographically-backe
 2. **Set up development environment** using the Nix flake in each experiment directory
 3. **Check decision records** in `/docs/decision-records/` for governance decisions
 4. **Follow commit guidelines** in `.cursor/rules/commit-message.mdc`
+5. **Review CI workflow** in `.github/workflows/` for automated validation
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
