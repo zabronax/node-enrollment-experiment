@@ -1,7 +1,7 @@
 resource "github_repository" "this" {
   name        = local.name
   description = local.description.short
-  visibility  = "private"
+  visibility  = "public"
 
   topics = concat(
     local.keywords.abstract,
