@@ -2,10 +2,10 @@ resource "github_branch_protection" "main" {
   repository_id = github_repository.this.node_id
 
   # The branch we want to enforce policies on
-  pattern       = "main"
+  pattern = "main"
 
   # We don't want to allow deletions
-  allows_deletions    = false
+  allows_deletions = false
 
   # We don't want to allow force pushes
   allows_force_pushes = false
