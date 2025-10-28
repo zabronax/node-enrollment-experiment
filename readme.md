@@ -15,12 +15,13 @@ Explore approaches for securely bootstrapping nodes with cryptographically-backe
 - **Versioned experiments** to track what works and what doesn't
 
 ## Structure
-- `/experiments/{id}/` - Individual experiment directories
-- Each experiment includes documentation and implementation artifacts
-- Commit messages follow experimental lifecycle patterns (start, iterate, conclude, pivot)
+- `/experiments/{id}/` - Individual experiment directories with Nix flakes and OpenTofu configurations
 - `/docs/decision-records/` - Governance decisions and process documentation
+- `/project/` - Repository-level infrastructure (remote repository configuration)
+- `.cursor/rules/` - Development guidelines and commit message conventions
 
 ## Getting Started
-1. Browse experiments in `/experiments/` to see what's being explored
-2. Each experiment directory contains its own README with setup instructions
-3. Check `/docs/decision-records/` for governance decisions and process documentation
+1. **Browse experiments** in `/experiments/` to see what's being explored
+2. **Set up development environment** using the Nix flake in each experiment directory
+3. **Check decision records** in `/docs/decision-records/` for governance decisions
+4. **Follow commit guidelines** in `.cursor/rules/commit-message.mdc`
