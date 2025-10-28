@@ -20,6 +20,8 @@
       devShells = withPkgs (pkgs: {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            # Tools
+            just
             # Secret Management
             sops
             age

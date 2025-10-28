@@ -1,0 +1,43 @@
+default:
+    just --list
+
+
+
+[group("Secrets")]
+[doc("Decrypt the SSH identity")]
+decrypt_ssh_identity:
+    @sops decrypt deployment/ssh-identity.encrypted > id_rsa
+
+
+
+[group("Deployment")]
+[confirm("Are you sure you want update the deployment stack?")]
+[doc("Deploy the deployment stack for experiment 000")]
+up_deployment:
+    @just _with_secrets "tofu -chdir=deployment apply -auto-approve"
+
+[group("Deployment")]
+[confirm("Are you sure you want to tear down the deployment stack?")]
+[doc("Destroy the deployment stack for experiment 000")]
+down_deployment:
+    @just _with_secrets "tofu -chdir=deployment destroy -auto-approve"
+
+
+
+[group("Infrastructure")]
+[confirm("Are you sure you want to update the infrastructure?")]
+[doc("Deploy the backing infrastructure for experiment 000")]
+up_infra:
+    @just _with_secrets "tofu -chdir=infrastructure apply -auto-approve"
+
+[group("Infrastructure")]
+[confirm("Are you sure you want to tear down the infrastructure?")]
+[doc("Destroy the backing infrastructure for experiment 000")]
+down_infra:
+    @just _with_secrets "tofu -chdir=infrastructure destroy -auto-approve"
+
+
+
+# Helper to run a command with the secrets loaded
+_with_secrets command:
+    @sops exec-env secrets.yaml "{{command}}"
