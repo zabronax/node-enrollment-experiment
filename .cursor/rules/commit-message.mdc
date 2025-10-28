@@ -1,0 +1,68 @@
+---
+description: Commit message formatting guidelines
+alwaysApply: false
+---
+# Commit Message Guidelines
+
+For the Node Enrollment Experiments repository, follow these commit message conventions:
+
+## Format
+```
+<type>: <description>
+
+[required body for exp type - describe rationale and experiment context]
+
+[optional footer(s)]
+```
+
+## Commit Types
+Use one of these minimal commit types:
+- `docs`: Documentation changes (README updates, experiment notes, how-to guides)
+- `decide`: Decision records (governance voting points, architectural choices, policy decisions)
+- `exp`: Experimental/exploratory work (node enrollment patterns, vault integration, infrastructure experiments)
+- `chore`: Maintenance tasks, dependency updates, tooling setup
+
+## Description Guidelines
+- Use imperative mood ("add feature" not "added feature")
+- Start with lowercase letter
+- No period at the end
+- Keep under 50 characters when possible
+- Be descriptive but concise
+
+## Experiment-Specific Rules
+For `exp` commits, the experiment ID is automatically determined from the directory structure:
+- Working in `/experiments/001/` → experiment 001
+- Working in `/experiments/002/` → experiment 002
+
+**Subject requirements:**
+- Describe experiment lifecycle change (start, iterate, conclude, pivot, abandon, resume, etc.)
+- Focus on node enrollment patterns, vault integration, or infrastructure approaches
+
+**Body requirements:**
+- Must describe the rationale and reference the experiment context
+- Explain why this change is being made
+
+## Examples
+```
+docs: document initial findings and observations
+decide: establish commit message guidelines
+decide: adopt experimental repository structure
+exp: start vault integration experiment
+exp: iterate on node enrollment approach
+exp: conclude with basic deployment
+exp: pivot to alternative approach
+exp: resume after dependency fix
+exp: start performance measurement setup
+chore: update Docker Compose dependencies
+```
+
+## Example with Body
+```
+exp: start vault integration experiment
+
+Testing Infisical as a vault solution for node enrollment.
+Establishing baseline measurements and understanding
+integration patterns to enable future comparisons.
+
+Working in experiment 001 directory.
+```
