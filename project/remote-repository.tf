@@ -6,9 +6,6 @@ resource "github_repository" "this" {
   topics = concat(
     local.keywords.abstract,
   )
-  
-  # Invalid attribute to test validation
-  invalid_attr = "this will fail"
 
   # Features
   has_issues      = false
