@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     infisical = {
-      source = "Infisical/infisical"
+      source  = "Infisical/infisical"
       version = "0.15.41"
     }
   }
@@ -18,13 +18,13 @@ terraform {
 
 variable "infisical_client_id" {
   description = "The client ID for the Infisical API"
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
 }
 variable "infisical_client_secret" {
   description = "The client secret for the Infisical API"
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
 }
 
 provider "infisical" {
