@@ -8,7 +8,7 @@ resource "github_repository" "this" {
   )
 
   # Features
-  has_issues      = false
+  has_issues = false
   has_projects    = false
   has_wiki        = false
   has_discussions = false
