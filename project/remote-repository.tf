@@ -3,6 +3,10 @@ resource "github_repository" "this" {
   description = local.description.short
   visibility = "private"
 
+  topics = concat(
+    local.keywords.abstract,
+  )
+
   # Features
   has_issues = false
   has_projects = false
