@@ -1,0 +1,71 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: read
+
+# Discard previous runs when a new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      project-tf: ${{ steps.filter.outputs.project_tf }}
+      experiment-tf: ${{ steps.filter.outputs.experiment_tf }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - uses: dorny/paths-filter@v3.0.2 # Predicate quantifier is new in v3.0.2
+        id: filter
+        with:
+          list-files: shell
+          predicate-quantifier: "every"
+          filters: |
+            project_tf:
+              - added|modified: 'project/*.tf'
+            experiment_tf:
+              - added|modified: 'experiments/*/*.tf'
+
+  # Run the format checks for changed files
+  format-checks:
+    name: Format Checks
+    runs-on: ubuntu-latest
+    needs: changes
+    if: ${{ needs.changes.outputs.project-tf == 'true' || needs.changes.outputs.experiment-tf == 'true' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check OpenTofu formatting - Project
+        if: ${{ needs.changes.outputs.project-tf == 'true' }}
+        run: |
+          cd project
+          nix develop --command tofu fmt -check
+      - name: Check OpenTofu formatting - Experiments
+        if: ${{ needs.changes.outputs.experiment-tf == 'true' }}
+        run: |
+          cd experiments/000
+          nix develop --command tofu fmt -check
+
+  # Set the CI status
+  ci-status:
+    name: CI Status
+    runs-on: ubuntu-latest
+    needs:
+      - changes
+      - format-checks
+    if: always()
+    steps:
+      - if: ${{ !cancelled() && !(contains(needs.*.result, 'failure')) }}
+        run: echo "CI passed"
+      - if: ${{ !cancelled() && contains(needs.*.result, 'failure') }}
+        run: echo "CI failed"
