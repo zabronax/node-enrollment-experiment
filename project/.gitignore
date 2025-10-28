@@ -1,0 +1,7 @@
+# direnv cache
+.direnv/
+
+# Terraform
+.terraform/
+*.tfvar
+*.tfstate*
