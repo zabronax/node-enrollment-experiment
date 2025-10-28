@@ -17,21 +17,20 @@ This experiment explores node authentication mechanisms for infrastructure deplo
 ## Initial Setup Requirements
 
 **Hetzner Cloud:**
-- Hetzner Cloud account
-- API token for OpenTofu provider authentication
-- SSH key pair for VM access
+- Private Hetzner Cloud account
+- OpenTofu definitions for Hetzner infrastructure
+- API token for programmatic access
 
 **Infisical:**
-- Infisical SaaS account (web-accessible setup)
-- Organization and project configuration
+- Private Infisical SaaS account
+- OpenTofu definitions for Infisical infrastructure
+- Organization and project configuration via IaC
 - API token for programmatic access
 
 **Development Environment:**
-- OpenTofu installation and configuration
-- Way to encode developer environment dependencies
-- Way to encode secrets (environment variables, local config)
+- Nix flake dev shell for dependency tracking
 
 **Secrets Management:**
-- Method to store and access Hetzner API token
-- Method to store and access Infisical API token
-- Secure handling of SSH keys and certificates
+- SOPS + Age for encrypting sensitive configuration
+- Age key pair for SOPS encryption
+- Sealed secrets embedded in repository
