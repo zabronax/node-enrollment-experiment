@@ -1,6 +1,6 @@
 resource "github_repository" "this" {
-  name = "node-enrollment-experiment"
-  description = "Node Enrollment Experiment"
+  name = local.name
+  description = local.description.short
   visibility = "private"
 
   # Features
