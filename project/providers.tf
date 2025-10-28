@@ -18,8 +18,8 @@ terraform {
 
 variable "github_token" {
   description = "The token for the GitHub API"
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
 }
 
 provider "github" {
